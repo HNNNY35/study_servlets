@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.hnnny.study_servlets.DatasInfor;
+import com.hnnny.study_servlets.beans.MemberBean;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,8 +22,15 @@ public class TablesBeanListServlets extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         DatasInfor datasInfor = new DatasInfor();
-        ArrayList<String> tablesListWithString = datasInfor.getTablesListWithString();
+        MemberBean memberBean = datasInfor.getDataWithMemberBean();
 
+        System.out.println(memberBean.getFirstName() + " " + 
+        memberBean.getSecondName() + " "  +memberBean.getHandleName());
+        
+        HashMap<String, Object> bundlesData =  datasInfor.getBundlesData();
+        
+
+        //Display areas
         PrintWriter printwiter =  response.getWriter();
         
         HashMap<String, String> searchForm = datasInfor.getSearchFormData();
@@ -40,23 +48,39 @@ public class TablesBeanListServlets extends HttpServlet {
         printwiter.println("<body>");
         printwiter.println("<div class='container'>");
         printwiter.println("<div class='fs-3'>Tables with Bean</div>");
+        
+        MemberBean memberBean2 = (MemberBean) bundlesData.get("dataWithMemberBean");
+        
+        printwiter.println(memberBean2.getFirstName() + " " + 
+        memberBean2.getSecondName() + " "  +memberBean2.getHandleName() + "</div>");
+
+        // printwiter.println("<div class='fs-4'>" + memberBean.getFirstName() + " " + 
+        // memberBean.getSecondName() + " "  +memberBean.getHandleName() + "</div>");
+        
         printwiter.println("<table class='table'>");
         printwiter.println("<thead>");
         printwiter.println("<tr>");
         printwiter.println("<th scope=>#</th>");
-        // printwiter.println("<th scope=>First</th>");
-        // printwiter.println("<th scope=>Last</th>");
+        printwiter.println("<th scope=>First</th>");
+        printwiter.println("<th scope=>Last</th>");
         printwiter.println("<th scope=>Handle</th>");
         printwiter.println("</tr>");
         printwiter.println("</thead>");
         printwiter.println("<tbody>");
-        for(int i=0; i<tablesListWithString.size(); i++) {
-            printwiter.println("<tr>");
-            printwiter.println("<th scope=>"+ (i+1) +"</th>");
-            printwiter.println("<td>"+tablesListWithString.get(i)+"</td>");
-            printwiter.println("</tr>");
+
+        ArrayList<MemberBean> dataListWithMemberBean = (ArrayList<MemberBean>) bundlesData.get("getDataListWithMemberBean");
+        for(int i=0; i<dataListWithMemberBean.size(); i++){
+            MemberBean memberBean03 = dataListWithMemberBean.get(i);
+            printwiter.println("                <tr>");
+            printwiter.println("                    <th scope=>"+(i+1)+"</th>");
+
+            String handle = memberBean03.getHandleName();
+            printwiter.println("                    <td>"+memberBean03.getFirstName()+"</td>");
+            printwiter.println("                    <td>"+memberBean03.getSecondName()+"</td>");
+            printwiter.println("                    <td>"+handle+"</td>");
+            printwiter.println("                </tr>");
         }
-      
+
         printwiter.println("</tbody>");
         printwiter.println("</table>");
 

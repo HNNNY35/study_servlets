@@ -3,6 +3,8 @@ package com.hnnny.study_servlets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.hnnny.study_servlets.beans.MemberBean;
+
 public class DatasInfor {
     public HashMap<String, String> getSearchFormData()  {
         HashMap<String, String> searchForm = new HashMap<String, String>();
@@ -29,6 +31,39 @@ public class DatasInfor {
         bundlesData.put("searchForm", searchForm);
         bundlesData.put("tablesListWithString", tablesListWithString);
 
+        bundlesData.put("dataWithMemberBean", datasInfor.getDataWithMemberBean());
+        bundlesData.put("getDataListWithMemberBean", datasInfor.getDataListWithMemberBean());
         return bundlesData;
+    }
+
+    public MemberBean getDataWithMemberBean(){
+        // 인스턴스화 시키기
+        MemberBean memberBean = new MemberBean();
+        memberBean.setFirstName("Mark");
+        memberBean.setSecondName("Otto");
+        memberBean.setHandleName("@mdo");
+        return memberBean;
+    }
+
+    public ArrayList<MemberBean> getDataListWithMemberBean(){
+        ArrayList<MemberBean> membersList = new ArrayList<>();
+        MemberBean memberBean = new MemberBean();
+        memberBean.setFirstName("Mark");
+        memberBean.setSecondName("Otto");
+        memberBean.setHandleName("@mdo");
+        membersList.add(memberBean);
+
+        MemberBean memberBean02 = new MemberBean();
+        memberBean02.setFirstName("Jacob");
+        memberBean02.setSecondName("Thornton");
+        memberBean02.setHandleName("@fat");
+        membersList.add(memberBean02);
+
+        MemberBean memberBean03 = new MemberBean();
+        memberBean03.setFirstName("Larry");
+        memberBean03.setSecondName("Bird");
+        memberBean03.setHandleName("@twitter");
+        membersList.add(memberBean03);
+        return membersList;
     }
 }
