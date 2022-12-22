@@ -33,6 +33,7 @@ public class CreateSessionServlets extends HttpServlet{
             httpSession.setAttribute("username", username);
             httpSession.setAttribute("password", password);
             printWriter.println("<div>"+username+", "+password+"</div>");
+            
         } else {
             printWriter.println("<div>Faild</div>");
         }
